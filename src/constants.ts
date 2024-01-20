@@ -45,6 +45,16 @@ export const allClasses = {
     { id: 12, name: "NATHANIEL AKINSANYA" },
     { id: 13, name: "PETERS GABRIEL" },
     { id: 14, name: "TAIVEON BROTHERSON" }
+  ],
+  EDEN :[
+    { id: 1, name: "JESSE ZIBANAYI" },
+    { id: 2, name: "ISABELLA APPIAH" },
+    { id: 3, name: "T’ZAYEA BROTHERSIN" },
+    { id: 4, name: "KIEREN OWONURUIGHE" },
+    { id: 5, name: "ZARA" },
+    { id: 6, name: "ABIGAIL MUSAFIRI" },
+    { id: 7, name: "VIMBISO SITHOLE" },
+    { id: 8, name: "AMAYAH ADEYEMI" },
   ]
 }
 
