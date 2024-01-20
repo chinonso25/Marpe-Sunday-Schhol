@@ -39,9 +39,15 @@ const AttendanceTable = ({ data }: {data: Student[]}) => {
 
   const handleCheckboxChange = (id, field) => {
     setStudents(prev =>
-      prev.map(student =>
-        student.id === id ? { ...student, [field]: !student[field] } : student
-      )
+      prev.map(student => {
+        if (student.id === id) {
+          // Ensure only one of P, A, or T can be selected at a time
+          const updatedStudent = { ...student, P: false, A: false, T: false, [field]: !student[field] };
+          // Keep B independent as it seems to be a separate flag
+          return field === 'B' ? { ...updatedStudent, B: !student.B } : updatedStudent;
+        }
+        return student;
+      })
     );
   };
 
