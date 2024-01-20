@@ -1,13 +1,10 @@
-import { NextResponse, NextRequest } from 'next/server'
-import nodemailer from 'nodemailer'
-// Handles POST requests to /api
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
-export async function POST(request: { formData: () => any; }) {
-  // const username = process.env.NEXT_PUBLIC_BURNER_USERNAME;
-  // const password = process.env.NEXT_PUBLIC_BURNER_PASSWORD;
-  // const myEmail = process.env.NEXT_PUBLIC_PERSONAL_EMAIL;
-  const username = 'chinonso25@gmail.com'
-  const password = 'mldo clga rmjl rnll'
+export async function POST(request) {
+  const username = process.env.EMAIL_USERNAME; // Use environment variables
+  const password = process.env.EMAIL_PASSWORD;
+  const recipient = process.env.RECIPIENT_EMAIL; // Assuming you have a recipient email
 
   const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -20,27 +17,38 @@ export async function POST(request: { formData: () => any; }) {
     },
   });
 
-  const formData = await request.formData()
-  const file = formData.get('pdf-file')
+  const formData = await request.formData();
+  const file = formData.get('pdf-file'); // Ensure this is the correct field name
 
   try {
-
-    const mail = await transporter.sendMail({
+    await transporter.sendMail({
       from: username,
-      to: username,
-
+      to: recipient, // Send to a recipient
       subject: `Sunday School Form`,
-      html: `
-            <p>Sunday scjool form</p>
-            `,
-      attachments: [file]
-    })
+      html: `<p>Sunday School form</p>`,
+      attachments: [
+        {
+          filename: 'form.pdf',
+          content: file.stream(),
+          contentType: 'application/pdf'
+        }
+      ],
+    });
 
-    return NextResponse.json({ message: "Success: email was sent" })
+    return new NextResponse(JSON.stringify({ message: "Success: email was sent" }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
   } catch (error) {
-    console.log(error)
-    NextResponse.json({ message: "COULD NOT SEND MESSAGE" })
+    console.error(error);
+    return new NextResponse(JSON.stringify({ message: "COULD NOT SEND MESSAGE" }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
-
 }
