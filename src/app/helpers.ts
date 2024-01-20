@@ -36,7 +36,7 @@ export async function sendPdf(formData: FormData) {
     }
     const responseData = await response.json();
 
-    alert('Message successfully sent');
+    alert('Form successfully sent');
   } catch (err) {
     console.error(err);
     alert("Error, please try resubmitting the form");
