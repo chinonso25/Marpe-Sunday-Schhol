@@ -1,95 +1,77 @@
-import Image from 'next/image'
+'use client'
 import styles from './page.module.css'
+import AttendanceTable from './AttendanceTable'
+import { ClassRooms, allClasses, } from '@/constants'
+import { Box, Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack, Button } from '@chakra-ui/react'
+import { useMemo, useState } from 'react'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 
 export default function Home() {
+  const [classSelected, setClassSelected] = useState<ClassRooms>(ClassRooms.INSPIRATION)
+  const classTitles = Object.keys(allClasses)
+
+  const currentClass = allClasses[classSelected]
+
+  const exportPdf = async () => {
+    const element = document.getElementById('hi'); // ID of your element
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL('image/jpeg',.75);
+
+    // Initialize jsPDF - Consider adjusting the dimensions to match your content
+    const pdf = new jsPDF({
+      orientation: 'portrait', // or 'portrait'
+      unit: 'px',
+      format: [canvas.width, canvas.height]
+    });
+
+    // Add the canvas data as an image to the PDF
+    pdf.addImage(data, 'PNG', 0, 0, canvas.width, canvas.height);
+
+    // Save the PDF
+    pdf.save('download.pdf');
+  };
+
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <ChakraProvider>
+      <main id='main' className={styles.main}>
+        <header className={styles.header}>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+          <Heading>Sunday School Attendance Register</Heading>
+        </header>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Card marginBottom={10}>
+          <CardBody>
+            <HStack>
+              <Text> <Select value={classSelected} onChange={e => setClassSelected(e.target.value)}>
+                {classTitles.map(title => <option key={title} value={title}>{title}</option>)}
+              </Select></Text>
+              <Text>Date: {new Date().toDateString()}</Text>
+
+            </HStack>
+          </CardBody>
+        </Card>
+
+
+
+        <AttendanceTable data={currentClass} />
+        <Textarea marginTop={5} placeholder='Comments' />
+
+        <Button
+          size='md'
+          height='48px'
+          width='200px'
+          border='2px'
+          borderColor='green.500'
+          marginTop={5}
+          onClick={exportPdf}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          Submit
+        </Button>
+      </main>
+    </ChakraProvider>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
   )
 }
