@@ -6,7 +6,6 @@ import { Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack
 import { useState } from 'react'
 import { exportPdf } from './helpers'
 import { SingleDatepicker } from 'chakra-dayzed-datepicker'
-import { useRouter } from "next/navigation";
 
 const PASSWORD = 'EXC3LCH1LD'
 
@@ -19,7 +18,7 @@ export default function Home() {
   const [enteredPassword, setEnteredPassword] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [date, setDate] = useState(new Date());
-  const router = useRouter();
+  const [submitted, setSubmitted] = useState(false)
 
   const currentClass = allClasses[classSelected]
 
@@ -40,8 +39,10 @@ export default function Home() {
     }
 
     if (isValid) {
-      exportPdf(); // Only call exportPdf if the form is valid
-      router.refresh();
+      exportPdf({ teacher, teacherSupport, classRoom: classSelected }); // Only call exportPdf if the form is valid
+      setSubmitted(true)
+      setTeacher('')
+      setTeacherSupport('')
     }
   };
 
@@ -108,7 +109,7 @@ export default function Home() {
           </CardBody>
         </Card>
 
-        <AttendanceTable data={currentClass} />
+        <AttendanceTable data={currentClass} submitted={submitted} />
         <Textarea marginTop={5} placeholder='Comments' />
 
         <Button

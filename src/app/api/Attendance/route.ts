@@ -38,13 +38,24 @@ export async function POST(request) {
   const formData = await request.formData();
   const file = formData.get('pdf-file'); // Ensure this is the correct field name
   const fileBuffer = await streamToBuffer(file.stream());
+  const teacher = formData.get('teacher')
+  const teacherSupport = formData.get('teacherSupport')
+  const classRoom = formData.get('classRoom')
+
 
   try {
     await transporter.sendMail({
       from: 'info',
       to: recipient, // Send to a recipient
-      subject: `Sunday School Form`,
-      html: `<p>Sunday School form</p>`,
+      subject: `${classRoom} - Sunday School`,
+      html: `<p><u><strong>Sunday School Form</strong></u><strong>&nbsp; -&nbsp;</strong></p>
+
+<p><strong>Class: ${classRoom}</strong></p>
+
+<p><strong>Teacher: ${teacher}</strong></p>
+
+<p><strong>Teacher Support: ${teacherSupport}</strong></p>
+`,
       attachments: [
         {
           filename: 'form.pdf',

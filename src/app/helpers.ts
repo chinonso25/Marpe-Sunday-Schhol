@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-export const exportPdf = async () => {
+export const exportPdf = async ({ teacher, teacherSupport, classRoom } : { teacher: string, teacherSupport: string, classRoom: string }) => {
   const element = document.getElementById('hi'); // ID of your element
   const canvas = await html2canvas(element);
   const data = canvas.toDataURL('image/jpeg', 0.75);
@@ -18,6 +18,9 @@ export const exportPdf = async () => {
   const pdfBlob = pdf.output('blob')
   const formData = new FormData();
   formData.append('pdf-file', pdfBlob, 'download.pdf');
+  formData.append('teacher', teacher)
+  formData.append('teacherSupport', teacherSupport)
+  formData.append('classRoom', classRoom)
 
   // Send the PDF
   sendPdf(formData);

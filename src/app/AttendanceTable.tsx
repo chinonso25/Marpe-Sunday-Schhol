@@ -16,7 +16,7 @@ const TextInput = ({ value, onChange }: { value: string; onChange: () => void })
   />
 );
 
-const AttendanceTable = ({ data }: { data: Student[] }) => {
+const AttendanceTable = ({ data, submitted }: { data: Student[], submitted: boolean }) => {
   const initializeState = () => {
     const mappedData = data.map(student => ({
       ...student,
@@ -35,7 +35,9 @@ const AttendanceTable = ({ data }: { data: Student[] }) => {
 
   useEffect(() => {
     setStudents(initializeState());
-  }, [data]);
+  }, [data, submitted]);
+
+
 
   const handleCheckboxChange = (id, field) => {
     setStudents(prev =>
