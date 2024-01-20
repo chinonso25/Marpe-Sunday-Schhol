@@ -2,9 +2,11 @@
 import styles from './page.module.css'
 import AttendanceTable from './AttendanceTable'
 import { ClassRooms, allClasses } from '@/constants'
-import { Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack, Button, Input, Alert, AlertIcon } from '@chakra-ui/react'
+import { Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack, Button, Input, Alert, AlertIcon, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { exportPdf } from './helpers'
+
+const PASSWORD = 'EXC3LCH1LD'
 
 export default function Home() {
   const [classSelected, setClassSelected] = useState<ClassRooms>(ClassRooms.INSPIRATION)
@@ -12,7 +14,9 @@ export default function Home() {
   const [teacher, setTeacher] = useState('')
   const [teacherSupport, setTeacherSupport] = useState('')
   const [error, setError] = useState({ teacher: '', teacherSupport: '' })
-
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  
   const currentClass = allClasses[classSelected]
 
   const handleSubmit = () => {
@@ -33,9 +37,34 @@ export default function Home() {
 
     if (isValid) {
       exportPdf(); // Only call exportPdf if the form is valid
-      
+
     }
   };
+
+  const handlePasswordSubmit = () => {
+    if (enteredPassword === PASSWORD) {
+      setIsAuthenticated(true);
+    } else {
+      alert("Incorrect password");
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <ChakraProvider>
+        <VStack padding={40} spacing={4} align="center" justify="center" height="100vh">
+          <Text>Please Enter Password to Access</Text>
+          <Input
+            type="password"
+            placeholder="Enter Password"
+            value={enteredPassword}
+            onChange={(e) => setEnteredPassword(e.target.value)}
+          />
+          <Button onClick={handlePasswordSubmit}>Submit</Button>
+        </VStack>
+      </ChakraProvider>
+    );
+  }
 
   return (
     <ChakraProvider>
@@ -62,7 +91,7 @@ export default function Home() {
               {error.teacherSupport && <Alert status='error'><AlertIcon />{error.teacherSupport}</Alert>}
             </HStack>
             <HStack spacing={10} marginTop={5} marginLeft={1}>
-              <Text> Legend: <b>P = present, A = absent, T= Tardy, B = Bible</b></Text>
+              <Text> Legend: <b>P = Present, A = Absent, P/T = Present but with parent, B = Bible</b></Text>
             </HStack>
           </CardBody>
         </Card>

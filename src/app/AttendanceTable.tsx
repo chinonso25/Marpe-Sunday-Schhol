@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { Student } from '@/constants';
 
-const Checkbox = ({ checked, onChange }: {checked: boolean; onChange: ()=> void}) => (
+const Checkbox = ({ checked, onChange }: { checked: boolean; onChange: () => void }) => (
   <input type="checkbox" checked={checked} onChange={onChange} />
 );
 
-const TextInput = ({ value, onChange }: {value: string; onChange: () => void }) => (
+const TextInput = ({ value, onChange }: { value: string; onChange: () => void }) => (
   <input
     type="text"
     value={value}
@@ -16,7 +16,7 @@ const TextInput = ({ value, onChange }: {value: string; onChange: () => void }) 
   />
 );
 
-const AttendanceTable = ({ data }: {data: Student[]}) => {
+const AttendanceTable = ({ data }: { data: Student[] }) => {
   const initializeState = () => {
     const mappedData = data.map(student => ({
       ...student,
@@ -64,19 +64,17 @@ const AttendanceTable = ({ data }: {data: Student[]}) => {
       <Table variant="striped" colorScheme="teal">
         <Thead>
           <Tr>
-            <Th>Student Name</Th><Th>P</Th><Th>A</Th><Th>T</Th><Th>B</Th><Th>Notes</Th>
+            <Th>Student Name</Th><Th>P</Th><Th>A</Th><Th>P/T</Th><Th>B</Th><Th>Notes</Th>
           </Tr>
         </Thead>
         <Tbody>
           {students.map(student => (
             <Tr key={student.id}>
               <Td>
-                {student.name ?
-                student.name :
                 <TextInput
                   value={student.name}
                   onChange={e => handleTextInputChange(student.id, 'name', e.target.value)}
-                />}
+                />
               </Td>
               {['P', 'A', 'T', 'B'].map(field => (
                 <Td key={field}>
