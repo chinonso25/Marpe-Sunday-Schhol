@@ -2,9 +2,11 @@
 import styles from './page.module.css'
 import AttendanceTable from './AttendanceTable'
 import { ClassRooms, allClasses } from '@/constants'
-import { Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack, Button, Input, Alert, AlertIcon, VStack } from '@chakra-ui/react'
+import { Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack, Button, Input, Alert, AlertIcon, VStack, Center } from '@chakra-ui/react'
 import { useState } from 'react'
 import { exportPdf } from './helpers'
+import { SingleDatepicker } from 'chakra-dayzed-datepicker'
+import { useRouter } from "next/navigation";
 
 const PASSWORD = 'EXC3LCH1LD'
 
@@ -16,7 +18,9 @@ export default function Home() {
   const [error, setError] = useState({ teacher: '', teacherSupport: '' })
   const [enteredPassword, setEnteredPassword] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  
+  const [date, setDate] = useState(new Date());
+  const router = useRouter();
+
   const currentClass = allClasses[classSelected]
 
   const handleSubmit = () => {
@@ -37,7 +41,7 @@ export default function Home() {
 
     if (isValid) {
       exportPdf(); // Only call exportPdf if the form is valid
-
+      router.refresh();
     }
   };
 
@@ -76,12 +80,20 @@ export default function Home() {
         <Card marginBottom={10}>
           <CardBody>
             <HStack spacing={20}>
-              <Text>
+              <div style={{ width: 200, display: 'flex', flexDirection: 'row' }}>
+                <Center marginRight={2}> <Text verticalAlign='bottom' style={{ verticalAlign: 'center' }}>Class:</Text></Center>
                 <Select value={classSelected} onChange={e => setClassSelected(e.target.value)}>
                   {classTitles.map(title => <option key={title} value={title}>{title}</option>)}
                 </Select>
-              </Text>
-              <Text>Date: {new Date().toDateString()}</Text>
+              </div>
+              <div style={{ width: 200, display: 'flex', flexDirection: 'row' }}>
+                <Center marginRight={2}> <Text verticalAlign='bottom' style={{ verticalAlign: 'center' }}> Date:</Text></Center><SingleDatepicker
+                  name="date-input"
+                  date={date}
+                  onDateChange={setDate}
+                  configs={{ dateFormat: 'dd-MM-yyyy' }}
+                />
+              </div>
             </HStack>
 
             <HStack spacing={10} marginTop={5} marginLeft={1}>

@@ -32,11 +32,9 @@ export async function sendPdf(formData: FormData) {
     });
 
     if (!response.ok) {
-      console.log("falling over", response);
       throw new Error(`response status: ${response.status}`);
     }
     const responseData = await response.json();
-    console.log(responseData['message']);
 
     alert('Message successfully sent');
   } catch (err) {
