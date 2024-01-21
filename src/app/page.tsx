@@ -39,6 +39,7 @@ export default function Home() {
     }
 
     if (isValid) {
+      setSubmitted(true)
       exportPdf({ teacher, teacherSupport, classRoom: classSelected }); // Only call exportPdf if the form is valid
       setSubmitted(true)
       setTeacher('')

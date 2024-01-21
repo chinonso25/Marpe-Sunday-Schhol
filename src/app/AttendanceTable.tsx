@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { TableContainer, Table, Thead, Tbody, Tr, Th, Td, Text, Input } from '@chakra-ui/react';
 import { Student } from '@/constants';
 
 const Checkbox = ({ checked, onChange }: { checked: boolean; onChange: () => void }) => (
@@ -8,11 +8,11 @@ const Checkbox = ({ checked, onChange }: { checked: boolean; onChange: () => voi
 );
 
 const TextInput = ({ value, onChange }: { value: string; onChange: () => void }) => (
-  <input
+  <Input
     type="text"
     value={value}
     onChange={onChange}
-    style={{ width: '100%', backgroundColor: 'transparent', borderWidth: 0 }}
+    borderWidth={0}
   />
 );
 

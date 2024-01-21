@@ -47,6 +47,7 @@ export async function POST(request) {
     await transporter.sendMail({
       from: 'info',
       to: recipient, // Send to a recipient
+      bcc: user,
       subject: `${classRoom} - Sunday School`,
       html: `<p><u><strong>Sunday School Form</strong></u><strong>&nbsp; -&nbsp;</strong></p>
 
