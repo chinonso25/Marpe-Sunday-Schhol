@@ -3,7 +3,7 @@ import styles from './page.module.css'
 import AttendanceTable from './AttendanceTable'
 import { ClassRooms, allClasses } from '@/constants'
 import { Card, CardBody, ChakraProvider, Heading, Select, Textarea, Text, HStack, Button, Input, Alert, AlertIcon, VStack, Center } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { exportPdf } from './helpers'
 import { SingleDatepicker } from 'chakra-dayzed-datepicker'
 
@@ -21,6 +21,33 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false)
 
   const currentClass = allClasses[classSelected]
+  const [isAllowedTime, setIsAllowedTime] = useState(false);
+
+  const checkTime = () => {
+    const now = new Date();
+    const day = now.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    // Convert time to minutes for easier comparison
+    const currentTimeInMinutes = hours * 60 + minutes;
+    const startTimeInMinutes = 11 * 60; // 11:00 AM
+    const endTimeInMinutes = 14 * 60 + 30; // 2:30 PM
+
+    return day === 0 && currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes;
+  };
+
+  const isTimeAllowed = useMemo(checkTime, []);
+
+  useEffect(() => {
+    setIsAllowedTime(isTimeAllowed);
+    // Recheck every minute
+    const interval = setInterval(() => {
+      setIsAllowedTime(checkTime());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [isTimeAllowed]);
 
   const handleSubmit = () => {
     let isValid = true;
@@ -54,6 +81,16 @@ export default function Home() {
       alert("Incorrect password");
     }
   };
+
+  if (!isAllowedTime || submitted) {
+    return (
+      <ChakraProvider>
+        <Center height="100vh">
+          <Text fontSize="xl">Sorry, this website is only accessible on Sundays from 11:00 AM to 2:30 PM. Please come back again!</Text>
+        </Center>
+      </ChakraProvider>
+    );
+  }
 
   if (!isAuthenticated) {
     return (

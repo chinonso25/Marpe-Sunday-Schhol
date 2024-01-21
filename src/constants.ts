@@ -11,7 +11,8 @@ export const allClasses = {
     { id: 8, name: "LUKALU MACAIAH" },
     { id: 9, name: "MENSAH BONSU SHENEECIA" },
     { id: 10, name: "MICAH FORBES" },
-    { id: 11, name: "PURITY" }
+    { id: 11, name: "PURITY" },
+    { id: 12, name: "NHIKA MAKAELA" }
   ],
   INSPIRATION: [
     { id: 1, name: "ADEYEMI JOSIAH" },
@@ -28,7 +29,9 @@ export const allClasses = {
     { id: 12, name: "MAWIRE DANIEL" },
     { id: 13, name: "MAWIRE JEREMIAH" },
     { id: 14, name: "MUSAFARI GABRIEL" },
-    { id: 15, name: "ZIBANANYI JUDAH" }
+    { id: 15, name: "ZIBANANYI JUDAH" },
+    { id: 16, name: "OWONARUIGHE CALEB" }
+
   ],
   RECONCILIATION: [
     { id: 1, name: "ADU-BOAHENE PRINCE" },
@@ -40,13 +43,12 @@ export const allClasses = {
     { id: 7, name: "MAWIRE VICTORIA" },
     { id: 8, name: "MENSAH- BONSU ARIYEL" },
     { id: 9, name: "MENSAH-BONSU JEMIMA" },
-    { id: 10, name: "NHIKA MAKAELA" },
     { id: 11, name: "NHIKA SAMARA" },
     { id: 12, name: "NATHANIEL AKINSANYA" },
     { id: 13, name: "PETERS GABRIEL" },
     { id: 14, name: "TAIVEON BROTHERSON" }
   ],
-  EDEN :[
+  EDEN: [
     { id: 1, name: "JESSE ZIBANAYI" },
     { id: 2, name: "ISABELLA APPIAH" },
     { id: 3, name: "T’ZAYEA BROTHERSIN" },
@@ -55,6 +57,8 @@ export const allClasses = {
     { id: 6, name: "ABIGAIL MUSAFIRI" },
     { id: 7, name: "VIMBISO SITHOLE" },
     { id: 8, name: "AMAYAH ADEYEMI" },
+    { id: 9, name: "BROTHERSON T’ZAYEA" },
+    { id: 10, name: "OWONARUIGHE KEREN" }
   ]
 }
 
