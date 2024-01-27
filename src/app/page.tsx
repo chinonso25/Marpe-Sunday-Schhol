@@ -82,7 +82,7 @@ export default function Home() {
     }
   };
 
-  if (!isAllowedTime || submitted) {
+  if (/*!isAllowedTime ||*/ submitted) {
     return (
       <ChakraProvider>
         <Center height="100vh">
