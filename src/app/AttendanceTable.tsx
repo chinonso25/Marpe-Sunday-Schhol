@@ -74,6 +74,7 @@ const AttendanceTable = ({ data, submitted }: { data: Student[], submitted: bool
             <Tr key={student.id}>
               <Td>
                 <TextInput
+                style={{height:50}}
                   value={student.name}
                   onChange={e => handleTextInputChange(student.id, 'name', e.target.value)}
                 />
