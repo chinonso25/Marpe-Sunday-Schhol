@@ -82,10 +82,19 @@ export default function Home() {
     }
   };
 
-  if (/*!isAllowedTime ||*/ submitted) {
+  if (submitted) {
+    return(
+    <ChakraProvider>
+      <Center height="100vh" padding={20}>
+        <Text fontSize="xl">Thank you for sumbitting your class register</Text>
+      </Center>
+    </ChakraProvider>)
+  }
+
+  if (!isAllowedTime) {
     return (
       <ChakraProvider>
-        <Center height="100vh">
+        <Center height="100vh" padding={20}>
           <Text fontSize="xl">Sorry, this website is only accessible on Sundays from 11:00 AM to 2:30 PM. Please come back again!</Text>
         </Center>
       </ChakraProvider>
