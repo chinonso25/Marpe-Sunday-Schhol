@@ -48,15 +48,8 @@ export async function POST(request) {
       from: 'info',
       to: recipient, // Send to a recipient
       bcc: user,
-      subject: `${classRoom} - Sunday School`,
-      html: `<p><u><strong>Sunday School Form</strong></u><strong>&nbsp; -&nbsp;</strong></p>
-
-<p><strong>Class: ${classRoom}</strong></p>
-
-<p><strong>Teacher: ${teacher}</strong></p>
-
-<p><strong>Teacher Support: ${teacherSupport}</strong></p>
-`,
+      subject: `${classRoom} - Sunday School - ${new Date().toLocaleDateString()}`,
+      html: `<p></p>`,
       attachments: [
         {
           filename: 'form.pdf',

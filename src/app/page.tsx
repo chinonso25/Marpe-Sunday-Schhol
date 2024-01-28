@@ -91,15 +91,15 @@ export default function Home() {
     </ChakraProvider>)
   }
 
-  if (!isAllowedTime) {
-    return (
-      <ChakraProvider>
-        <Center height="100vh" padding={20}>
-          <Text fontSize="xl">Sorry, this website is only accessible on Sundays from 11:00 AM to 2:30 PM. Please come back again!</Text>
-        </Center>
-      </ChakraProvider>
-    );
-  }
+  // if (!isAllowedTime) {
+  //   return (
+  //     <ChakraProvider>
+  //       <Center height="100vh" padding={20}>
+  //         <Text fontSize="xl">Sorry, this website is only accessible on Sundays from 11:00 AM to 2:30 PM. Please come back again!</Text>
+  //       </Center>
+  //     </ChakraProvider>
+  //   );
+  // }
 
   if (!isAuthenticated) {
     return (

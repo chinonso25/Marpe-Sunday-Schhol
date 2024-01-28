@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { TableContainer, Table, Thead, Tbody, Tr, Th, Td, Text, Input } from '@chakra-ui/react';
 import { Student } from '@/constants';
@@ -18,7 +18,8 @@ const TextInput = ({ value, onChange }: { value: string; onChange: () => void })
 );
 
 const AttendanceTable = ({ data, submitted }: { data: Student[], submitted: boolean }) => {
-  const initializeState = () => {
+  const initializeState = 
+  useCallback(() => {
     const mappedData = data.map(student => ({
       ...student,
       P: false, A: false, T: false, B: false, notes: ''
@@ -30,29 +31,37 @@ const AttendanceTable = ({ data, submitted }: { data: Student[], submitted: bool
     }));
 
     return [...mappedData, ...emptyObjects];
-  };
+  },[data]);
 
   const [students, setStudents] = useState(initializeState);
 
   useEffect(() => {
     setStudents(initializeState());
-  }, [data, submitted]);
+  }, [data, initializeState, submitted]);
 
 
 
   const handleCheckboxChange = (id, field) => {
     setStudents(prev =>
       prev.map(student => {
-        if (student.id === id) {
-          // Ensure only one of P, A, or T can be selected at a time
-          const updatedStudent = { ...student, P: false, A: false, T: false, [field]: !student[field] };
-          // Keep B independent as it seems to be a separate flag
-          return field === 'B' ? { ...updatedStudent, B: !student.B } : updatedStudent;
+        if (student.id !== id) {
+          return student;
         }
-        return student;
+
+        // For B, toggle its value, keep others as is
+        if (field === 'B') {
+          return { ...student, B: !student.B };
+        }
+
+        // For P, A, or T, set all to false and toggle the selected field
+        const updatedStudent = { ...student, P: false, A: false, T: false };
+        updatedStudent[field] = !student[field];
+
+        return updatedStudent;
       })
     );
   };
+
 
   const handleTextInputChange = (id, field, value) => {
     setStudents(prev =>
