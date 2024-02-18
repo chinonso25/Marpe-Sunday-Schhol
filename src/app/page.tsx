@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { exportPdf } from './helpers'
 import { SingleDatepicker } from 'chakra-dayzed-datepicker'
 
-const PASSWORD = 'EXC3LCH1LD'
+const PASSWORD = 'M4RP3CH11D'
 
 export default function Home() {
   const [classSelected, setClassSelected] = useState<ClassRooms>(ClassRooms.INSPIRATION)

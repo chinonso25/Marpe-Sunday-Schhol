@@ -30,7 +30,9 @@ export const allClasses = {
     { id: 13, name: "MAWIRE JEREMIAH" },
     { id: 14, name: "MUSAFARI GABRIEL" },
     { id: 15, name: "ZIBANANYI JUDAH" },
-    { id: 16, name: "OWONARUIGHE CALEB" }
+    { id: 16, name: "OWONARUIGHE CALEB" },
+    { id: 17, name: "BROTHERSON T’ZAYEA" },
+    { id: 18, name: "OWONURUIGHE KEREN" },
 
   ],
   RECONCILIATION: [
@@ -51,13 +53,10 @@ export const allClasses = {
   EDEN: [
     { id: 1, name: "JESSE ZIBANAYI" },
     { id: 2, name: "ISABELLA APPIAH" },
-    { id: 3, name: "T’ZAYEA BROTHERSIN" },
-    { id: 4, name: "KIEREN OWONURUIGHE" },
     { id: 5, name: "ZARA" },
     { id: 6, name: "ABIGAIL MUSAFIRI" },
     { id: 7, name: "VIMBISO SITHOLE" },
     { id: 8, name: "AMAYAH ADEYEMI" },
-    { id: 9, name: "BROTHERSON T’ZAYEA" },
     { id: 10, name: "OWONARUIGHE KEREN" }
   ]
 }
