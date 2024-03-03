@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-export async function GET(request) {
+export async function GET() {
   return new NextResponse(JSON.stringify({ message: "Success: email was sent" }), {
     status: 200,
     headers: {
