@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { exportPdf } from './helpers'
 import { SingleDatepicker } from 'chakra-dayzed-datepicker'
 
-const PASSWORD = 'THANKHIM'
+const PASSWORD = 'HEISGOOD'
 
 export default function Home() {
   const [classSelected, setClassSelected] = useState<ClassRooms>(ClassRooms.INSPIRATION)
@@ -32,7 +32,7 @@ export default function Home() {
     // Convert time to minutes for easier comparison
     const currentTimeInMinutes = hours * 60 + minutes;
     const startTimeInMinutes = 11 * 60; // 11:00 AM
-    const endTimeInMinutes = 14 * 60 + 30; // 2:30 PM
+    const endTimeInMinutes = 15 * 60 + 0; // 3:00 PM
 
     return day === 0 && currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes;
   };
