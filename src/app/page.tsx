@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { exportPdf } from './helpers'
 import { SingleDatepicker } from 'chakra-dayzed-datepicker'
 
-const PASSWORD = 'HOLY_GOSPEL'
+const PASSWORD = 'REVELATION'
 
 export default function Home() {
   const [classSelected, setClassSelected] = useState<ClassRooms>(ClassRooms.INSPIRATION)
@@ -83,12 +83,12 @@ export default function Home() {
   };
 
   if (submitted) {
-    return(
-    <ChakraProvider>
-      <Center height="100vh" padding={20}>
-        <Text fontSize="xl">Thank you for sumbitting your class register</Text>
-      </Center>
-    </ChakraProvider>)
+    return (
+      <ChakraProvider>
+        <Center height="100vh" padding={20}>
+          <Text fontSize="xl">Thank you for sumbitting your class register</Text>
+        </Center>
+      </ChakraProvider>)
   }
 
   // if (!isAllowedTime) {
